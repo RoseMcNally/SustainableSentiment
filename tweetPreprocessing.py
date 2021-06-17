@@ -18,10 +18,10 @@ class TweetPreprocessor:
     minimum_tweets = 5000
     sample_size = 5000
     seed = 42
+    data = None
 
     def __init__(self, input_folder_path: str):
         self.path = input_folder_path
-        self.data = None
 
     def collate(self):
         if not self.data:
@@ -34,8 +34,6 @@ class TweetPreprocessor:
             print("Dropping tweets not containing keywords...")
             self.drop_missing(self.keywords)
             print("Done!")
-        else:
-            pass
 
     def clean(self):
         if isinstance(self.data, pd.DataFrame):
@@ -44,27 +42,19 @@ class TweetPreprocessor:
             print("Formatting tweet text...")
             self.format_tweet_text()
             print("Done!")
-        else:
-            pass
 
     def save_csv(self, output_file_path: str):
         if isinstance(self.data, pd.DataFrame):
             self.data.to_csv(output_file_path, index=False)
-        else:
-            pass
 
     def save_pickle(self, output_file_path:str):
         if isinstance(self.data, pd.DataFrame):
             self.data.to_pickle(output_file_path)
-        else:
-            pass
 
     def save_subset_csv(self, output_file_path: str):
         if isinstance(self.data, pd.DataFrame):
             subset = self.get_subset()
             subset.to_csv(output_file_path, index=False)
-        else:
-            pass
 
     def group(self):
         data_list = list()
@@ -80,15 +70,11 @@ class TweetPreprocessor:
     def drop_duplicates(self):
         if isinstance(self.data, pd.DataFrame):
             self.data = self.data.drop_duplicates("Tweet_ID")
-        else:
-            pass
 
     def drop_missing(self, words):
         if isinstance(self.data, pd.DataFrame):
             pattern = '|'.join(words)
             self.data = self.data[self.data["Text"].str.contains(pattern, flags=re.IGNORECASE, regex=True)]
-        else:
-            pass
 
     def get_subset(self):
         if isinstance(self.data, pd.DataFrame):
@@ -112,20 +98,14 @@ class TweetPreprocessor:
             else:
                 self.data = None
                 self.company_names = None
-        else:
-            pass
 
     def total_tweets(self, text):
         if isinstance(self.data, pd.DataFrame):
             return self.data[self.data["Text"].str.contains(text, flags=re.IGNORECASE, regex=True)].shape[0]
-        else:
-            return None
 
     def format_tweet_text(self):
         if isinstance(self.data, pd.DataFrame):
             self.data.loc[:, "Text"] = self.data.loc[:, "Text"].apply(lambda x: x[2:-1])
-        else:
-            pass
 
 
 if __name__ == '__main__':
