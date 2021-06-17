@@ -4,7 +4,7 @@ This GitHub repository contains the files for the MSc individual project "Sustai
 
 ## Tweet Collection
 
-Twitter data stored in `/data/all` was collected using a script edited from Jake Lever's [twitterScraper](https://github.com/DL-WG/twitterScraper) project, and pre-processed using code in the file `tweetPreprocessing.py`. The raw data is not included here.
+Twitter data stored in `/data/all/` was collected using a script edited from Jake Lever's [twitterScraper](https://github.com/DL-WG/twitterScraper) project, and pre-processed using code in the file `tweetPreprocessing.py`. The raw data is not included here.
 
 ## Natural Language Processing Models
 
