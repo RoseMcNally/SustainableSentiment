@@ -5,7 +5,6 @@ import regex as re
 
 
 class TweetPreprocessor:
-
     company_names = ['@NEC', 'Ericsson', 'Samsung', '@Apple', 'Microsoft', '@Cisco', 'Qualcomm', 'Fujitsu', 'Sony',
                      'Hitachi', 'Toshiba', '@LGUS', 'Lenovo', 'Pegatron', 'Foxconn', '@QuantaQCT', 'Huawei', 'ZTE',
                      'IBM', 'Dell', '@Intel', 'Siemens', 'Asus', 'Wistron', 'Compal', 'Panasonic', 'Nokia']
@@ -39,6 +38,8 @@ class TweetPreprocessor:
         if isinstance(self.data, pd.DataFrame):
             print("Removing companies with fewer than 5000 tweets...")
             self.drop_small_companies()
+            print("Fixing utf-8 encodings...")
+            self.fix_utf8_encodings()
             print("Formatting tweet text...")
             self.format_tweet_text()
             print("Done!")
@@ -47,7 +48,7 @@ class TweetPreprocessor:
         if isinstance(self.data, pd.DataFrame):
             self.data.to_csv(output_file_path, index=False)
 
-    def save_pickle(self, output_file_path:str):
+    def save_pickle(self, output_file_path: str):
         if isinstance(self.data, pd.DataFrame):
             self.data.to_pickle(output_file_path)
 
@@ -106,6 +107,11 @@ class TweetPreprocessor:
     def format_tweet_text(self):
         if isinstance(self.data, pd.DataFrame):
             self.data.loc[:, "Text"] = self.data.loc[:, "Text"].apply(lambda x: x[2:-1])
+
+    def fix_utf8_encodings(self):
+        if isinstance(self.data, pd.DataFrame):
+            self.data["Text"] = self.data["Text"].str.encode("raw-unicode-escape").str.decode(
+                "unicode-escape").str.encode("raw-unicode-escape").str.decode("utf-8")
 
 
 if __name__ == '__main__':

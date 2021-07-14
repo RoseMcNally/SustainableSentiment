@@ -35,6 +35,13 @@ class TestTweetPreprocessor(unittest.TestCase):
         correct_output = pd.read_pickle("test_tweets/outputs/drop_small_companies.pkl")
         self.assertTrue(tweets.data.equals(correct_output))
 
+    def test_fix_utf8_encodings(self):
+        tweets = tweetPreprocessing.TweetPreprocessor("test_tweets/inputs")
+        tweets.data = pd.read_pickle("test_tweets/outputs/drop_duplicates.pkl")
+        tweets.fix_utf8_encodings()
+        correct_output = pd.read_pickle("test_tweets/outputs/fix_utf8_encodings.pkl")
+        self.assertTrue(tweets.data.equals(correct_output))
+
     def test_format_tweet_text(self):
         tweets = tweetPreprocessing.TweetPreprocessor("test_tweets/inputs")
         tweets.data = pd.read_pickle("test_tweets/outputs/drop_small_companies.pkl")
