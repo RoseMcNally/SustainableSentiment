@@ -129,7 +129,9 @@ dmypy.json
 .pyre/
 
 # Large data files
-data/all/
+data/
 
 # Jupyter notebooks
 exploration.ipynb
+NLP.ipynb
+Pre-processing.ipynb
