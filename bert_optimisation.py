@@ -8,33 +8,27 @@ import methods
 from general_bert_optimizer import BertModelOptimizer, BertTokenizer
 from bert_preprocessor import BertPreprocessor
 
-if __name__ == '__main__':
+
+def tune_bert_hyperparameters(data, model_name, path, max_len, params):
     device = torch.device("cuda")
 
-    model_data = methods.read_model_data("data/all/labelled_filtered_3000.csv")
-    model_data = BertPreprocessor.preprocess(model_data)
-
-    train_text, temp_text, train_labels, temp_labels = train_test_split(model_data['Text'], model_data['Relevance'],
+    train_text, temp_text, train_labels, temp_labels = train_test_split(data['Text'], data['Relevance'],
                                                                         shuffle=True, test_size=0.2, random_state=42)
     val_text, test_text, val_labels, test_labels = train_test_split(temp_text, temp_labels, shuffle=True,
                                                                     test_size=0.5, random_state=42)
 
-    bert_tokenizer = BertTokenizer("bert-base-uncased", 128)
+    bert_tokenizer = BertTokenizer(model_name, max_len)
     train_seq, train_mask, train_y = bert_tokenizer.tokenize(train_text, train_labels)
     val_seq, val_mask, val_y = bert_tokenizer.tokenize(val_text, val_labels)
     test_seq, test_mask, test_y = bert_tokenizer.tokenize(test_text, test_labels)
 
-    bert_optimizer = BertModelOptimizer("bert-base-uncased", device, "data/bert", 6)
+    bert_optimizer = BertModelOptimizer(model_name, device, path, 6)
     bert_optimizer.load_training_data(train_seq, train_mask, train_y)
     bert_optimizer.load_validation_data(val_seq, val_mask, val_y)
 
-    learning_rates = [1e-5, 5e-5]
-    batches = [8, 16]
-    weight_decays = [0.1]
-
-    for lr in learning_rates:
-        for bs in batches:
-            for wd in weight_decays:
+    for lr in params["learning_rates"]:
+        for bs in params["batches"]:
+            for wd in params["weight_decays"]:
                 bert_optimizer.run(bs, lr, wd)
 
     bs, lr, wd = bert_optimizer.best_model_parameters
@@ -54,4 +48,17 @@ if __name__ == '__main__':
 
     cf_plot = sns.heatmap(cf_matrix / np.sum(cf_matrix), annot=True,
                           fmt='.2%', cmap='Blues')
-    cf_plot.get_figure().savefig("data/bert/cf_plot.png")
+    cf_plot.get_figure().savefig(path + "/cf_plot.png")
+
+
+if __name__ == '__main__':
+
+    model_data = methods.read_model_data("data/all/mum_filtered_with_duplicates.csv")
+    model_data = BertPreprocessor.preprocess(model_data)
+
+    learning_rates = [1e-5, 5e-5]
+    batches = [8, 16]
+    weight_decays = [0.1]
+    hyps = {"learning_rates": learning_rates, "batches": batches, "weight_decays": weight_decays}
+
+    tune_bert_hyperparameters(model_data, "bert-base-uncased", "data/bert", 128, hyps)
