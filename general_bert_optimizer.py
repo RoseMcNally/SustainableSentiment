@@ -20,6 +20,7 @@ class BertModelOptimizer:
         self.device = device
         self.epochs = training_epochs
         self.best_model_path = best_model_path
+        self.best_loss = float('inf')
 
     def load_training_data(self, seq, mask, y):
         self.train_data = TensorDataset(seq, mask, y)
@@ -49,8 +50,6 @@ class BertModelOptimizer:
 
         cross_entropy = nn.NLLLoss(weight=weights)
 
-        best_valid_loss = float('inf')
-
         self.run_count += 1
         print("Run", self.run_count, "- Batch size:", batch_size, ", Learning rate:", learning_rate, ", Weight decay:",
               weight_decay)
@@ -63,8 +62,8 @@ class BertModelOptimizer:
 
             valid_loss, _ = self.evaluate(model, val_dataloader, cross_entropy)
 
-            if valid_loss < best_valid_loss:
-                best_valid_loss = valid_loss
+            if valid_loss < self.best_loss:
+                self.best_loss = valid_loss
                 torch.save(model.state_dict(), self.best_model_path + '/best_weights.pt')
                 self.best_model_parameters = (batch_size, learning_rate, weight_decay)
 
