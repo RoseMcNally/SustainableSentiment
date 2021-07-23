@@ -9,18 +9,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn import svm
 import seaborn as sns
 
-# Constants
-
 word_vector_size = 300
-
-# Main
 
 if __name__ == '__main__':
 
     tokenizer = SvmTokenizer()
     tokenizer.train_embedding("data/all/clean.csv", "data/svm/word_model_svm.kv", word_vector_size)
 
-    model_data = methods.read_model_data("data/all/labelled_filtered_3000.csv")
+    model_data = methods.read_model_data("data/all/mum_filtered_with_duplicates.csv")
     model_data = SvmModel.preprocess(model_data)
 
     word_train = tokenizer.apply(model_data)
@@ -36,7 +32,7 @@ if __name__ == '__main__':
     train_text = scaler.transform(train_text)
     test_text = scaler.transform(test_text)
 
-    param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100], 'tol': [1e-6, 1e-5, 1e-4, 1e-3, 1e-2]}
+    param_grid = {'C': [0.001, 0.01, 0.1, 1], 'tol': [1e-5, 1e-4, 1e-3, 1e-2]}
     grid = GridSearchCV(svm.LinearSVC(random_state=0, max_iter=10000), param_grid, refit=True, verbose=2)
     grid.fit(train_text, train_labels)
     print(grid.best_estimator_)
@@ -50,3 +46,22 @@ if __name__ == '__main__':
     cm_plot = sns.heatmap(cf_matrix / np.sum(cf_matrix), annot=True, fmt='.2%', cmap='Blues')
     cm_plot.get_figure().savefig("data/svm/cm_svm_3000.png")
 
+    # Best model result:
+    # C=0.1, tol=1e-05
+    #
+    #                 precision    recall  f1-score   support
+    #
+    #          0.0       0.45      0.25      0.32       117
+    #          1.0       0.85      0.93      0.89       527
+    #
+    #     accuracy                           0.81       644
+    #    macro avg       0.65      0.59      0.60       644
+    # weighted avg       0.78      0.81      0.79       644
+    #
+    # Confusion matrix:
+    # [[ 29  88]
+    #  [ 35 492]]
+    #
+    # Normalised:
+    # [[0.25 0.75]
+    #  [0.07 0.93]]
