@@ -46,19 +46,24 @@ def tune_bert_hyperparameters(data, model_name, path, max_len, params):
     cf_matrix = confusion_matrix(test_y, preds)
     print(cf_matrix)
 
-    cf_plot = sns.heatmap(cf_matrix / np.sum(cf_matrix), annot=True,
+    cf_matrix = confusion_matrix(test_y, preds, normalize='true')
+
+    cf_plot = sns.heatmap(cf_matrix, annot=True,
                           fmt='.2%', cmap='Blues')
     cf_plot.get_figure().savefig(path + "/cf_plot.png")
 
 
 if __name__ == '__main__':
 
+    np.random.seed(42)
+    torch.manual_seed(42)
+
     model_data = methods.read_model_data("data/all/mum_filtered_with_duplicates.csv")
     model_data = BertPreprocessor.preprocess(model_data)
 
-    learning_rates = [1e-5, 5e-5]
-    batches = [8, 16]
-    weight_decays = [0.1]
+    learning_rates = [1e-5, 2e-5, 3e-5, 4e-5]
+    batches = [8, 16, 32, 64]
+    weight_decays = [0, 0.1, 0.2]
     hyps = {"learning_rates": learning_rates, "batches": batches, "weight_decays": weight_decays}
 
     tune_bert_hyperparameters(model_data, "bert-base-uncased", "data/bert", 128, hyps)
