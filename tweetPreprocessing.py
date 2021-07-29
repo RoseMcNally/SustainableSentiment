@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 import regex as re
 
 
@@ -117,9 +116,4 @@ class TweetPreprocessor:
 if __name__ == '__main__':
     tweets = TweetPreprocessor("../twitterScraper-main/output")
     tweets.collate()
-    tweets.save_pickle("data/all/all.pkl")
-    tweets.save_csv("data/all/all.csv")
     tweets.clean()
-    tweets.save_pickle("data/all/clean.pkl")
-    tweets.save_csv("data/all/clean.csv")
-    tweets.save_subset_csv("data/all/model_data.csv")

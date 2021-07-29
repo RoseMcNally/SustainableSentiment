@@ -153,6 +153,12 @@ class BertTokenizer:
         self.max_len = max_len
 
     def tokenize(self, text_data, labels):
+        seq, mask = self.tokenize_text_only(text_data)
+        y = torch.tensor(labels.tolist())
+
+        return seq, mask, y
+
+    def tokenize_text_only(self, text_data):
         tokens = self.tokenizer.batch_encode_plus(
             text_data.tolist(),
             max_length=self.max_len,
@@ -162,6 +168,5 @@ class BertTokenizer:
 
         seq = torch.tensor(tokens['input_ids'])
         mask = torch.tensor(tokens['attention_mask'])
-        y = torch.tensor(labels.tolist())
 
-        return seq, mask, y
+        return seq, mask

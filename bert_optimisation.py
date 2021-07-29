@@ -61,9 +61,29 @@ if __name__ == '__main__':
     model_data = methods.read_model_data("data/all/mum_filtered_with_duplicates.csv")
     model_data = BertPreprocessor.preprocess(model_data)
 
-    learning_rates = [1e-5, 2e-5, 3e-5, 4e-5]
+    learning_rates = [5e-6, 1e-5, 2e-5, 3e-5]
     batches = [8, 16, 32, 64]
-    weight_decays = [0, 0.1, 0.2]
+    weight_decays = [0, 0.1]
     hyps = {"learning_rates": learning_rates, "batches": batches, "weight_decays": weight_decays}
 
     tune_bert_hyperparameters(model_data, "bert-base-uncased", "data/bert", 128, hyps)
+
+    # Best model result:
+    # Batch size: 64 , Learning rate: 5e-06 , Weight decay: 0
+    #
+    #                precision    recall  f1-score   support
+    #
+    #            0       0.72      0.64      0.68        98
+    #            1       0.85      0.89      0.87       224
+    #
+    #     accuracy                           0.82       322
+    #    macro avg       0.79      0.77      0.78       322
+    # weighted avg       0.81      0.82      0.81       322
+    #
+    # Confusion matrix:
+    # [[ 63  35]
+    #  [ 24 200]]
+    #
+    # Normalised:
+    # [[0.64 0.36]
+    #  [0.11 0.89]]

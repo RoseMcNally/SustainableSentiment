@@ -132,10 +132,4 @@ dmypy.json
 data/
 
 # Jupyter notebooks
-exploration.ipynb
-NLP.ipynb
-Pre-processing.ipynb
-bert-filtered.ipynb
-bert.ipynb
-bertweet.ipynb
-svm.ipynb
+notebooks/
