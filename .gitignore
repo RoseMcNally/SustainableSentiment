@@ -133,3 +133,6 @@ data/
 
 # Jupyter notebooks
 notebooks/
+
+# Boring plotting file
+sentiment_plots.py
