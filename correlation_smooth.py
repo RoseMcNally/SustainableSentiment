@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 
 from correlation_raw import name_translation, get_indices, get_sentiment, print_corr
 
-
 def loc_eval(x, b):
     loc_est = 0
     for i in enumerate(b): loc_est += i[1] * (x ** i[0])
