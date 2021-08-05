@@ -130,6 +130,13 @@ dmypy.json
 
 # Large data files
 data/
+Monthly_msci_data.csv
 
 # Jupyter notebooks
 notebooks/
+
+# Boring plotting file
+sentiment_plots.py
+
+# No longer needed
+correlation_msci.py
