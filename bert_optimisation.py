@@ -66,7 +66,7 @@ if __name__ == '__main__':
     weight_decays = [0, 0.1]
     hyps = {"learning_rates": learning_rates, "batches": batches, "weight_decays": weight_decays}
 
-    tune_bert_hyperparameters(model_data, "bert-base-uncased", "data/bert", 128, hyps)
+    tune_bert_hyperparameters(model_data, "bert-base-uncased", "data/bert", 50, hyps)
 
     # Best model result:
     # Batch size: 64 , Learning rate: 5e-06 , Weight decay: 0
