@@ -1,6 +1,6 @@
 # Sustainable Sentiment 
 
-This GitHub repository contains the files for the MSc individual project "Sustainable Sentiment: Estimating the Sentiment for the Sustainability of Technology Companies through Machine Learning". The data is not included due to the large file sizes. To request any data collected or processed as part of this project, please email me at rosemcnally@hotmail.co.uk.
+This GitHub repository contains the files for the MSc individual project "Sustainable Sentiment: Estimating the Sentiment for the Sustainability of Technology Companies through Machine Learning". The tweet data is not included due to the large file sizes. To request any tweet data collected or processed as part of this project, please email me at rosemcnally@hotmail.co.uk. Note that it can only be used for academic research as stipulated by the [Twitter API policy](https://developer.twitter.com/en/developer-terms/policy).
 
 ## Tweet Collection
 
