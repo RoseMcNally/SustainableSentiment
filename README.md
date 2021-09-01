@@ -1,6 +1,6 @@
 # Sustainable Sentiment 
 
-This GitHub repository contains the files for the MSc individual project "Sustainable Sentiment: Estimating the Sentiment for the Sustainability of Technology Companies through Machine Learning". The tweet data is not included due to the large file sizes. To request any tweet data collected or processed as part of this project, please email me at rosemcnally@hotmail.co.uk. Note that it can only be used for academic research as stipulated by the [Twitter API policy](https://developer.twitter.com/en/developer-terms/policy).
+This GitHub repository contains the files for the MSc individual project "Noise Filtration in Twitter Data and its Application in a Study on Corporate Sustainability Sentiment". The tweet data is not included due to the large file sizes and Twitter's Developer Policy. To request any tweet data collected or processed as part of this project, please email me at rosemcnally@hotmail.co.uk. Note that it can only be used for academic research as stipulated by the [Twitter API policy](https://developer.twitter.com/en/developer-terms/policy).
 
 ## Tweet Collection
 
@@ -15,11 +15,11 @@ The raw tweets were collected using a script edited from Jake Lever's [twitterSc
 
 The `filter_full_data.py` file runs the successful BERTweet model on the full tweet dataset.
 
-## Sustainable Action vs Sentiment
+## Sustainable Behaviour vs Sentiment
 
 The `sentiment_analysis.py` file runs the BERTweet-based sentiment model from [pysentimiento](https://github.com/pysentimiento/pysentimiento) on the full dataset.
 
-The `correlation_raw.py` file plots the raw sustainability indices and sentiment data, and finds the correlation between the two. It also scans from a lag of -24 months to +24 months and finds the maximum correlation.
+The `correlation_raw.py` file plots the raw sustainability indices and sentiment data, and finds the correlation between the two. It also scans from a lag of -12 months to +12 months and finds the maximum correlation.
 
 The `correlation_smooth.py` file smoothes the sustainability indices and sentiment data, plots them and finds the correlation and lag.
 
