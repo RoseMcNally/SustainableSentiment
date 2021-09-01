@@ -12,9 +12,9 @@ if __name__ == '__main__':
     model_data = methods.read_model_data("data/all/mum_filtered_with_duplicates.csv")
     model_data["Text"] = model_data["Text"].apply(lambda x: re.sub("@", "", x))
 
-    learning_rates = [5e-6]
-    batches = [64]
-    weight_decays = [0.2]
+    learning_rates = [5e-6, 1e-5, 2e-5, 3e-5]
+    batches = [8, 16, 32, 64]
+    weight_decays = [0, 0.1, 0.2]
     hyps = {"learning_rates": learning_rates, "batches": batches, "weight_decays": weight_decays}
 
     tune_bert_hyperparameters(model_data, "vinai/bertweet-base", "data/bertweet/other", 50, hyps)
@@ -38,7 +38,3 @@ if __name__ == '__main__':
     # Normalised:
     # [[0.62 0.38]
     #  [0.05 0.95]]
-    #
-    #     learning_rates = [5e-6, 1e-5, 2e-5, 3e-5]
-    #     batches = [8, 16, 32, 64]
-    #     weight_decays = [0, 0.1, 0.2]
