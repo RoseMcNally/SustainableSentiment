@@ -1,6 +1,6 @@
 # Sustainable Sentiment 
 
-This GitHub repository contains the files for the MSc individual project "Noise Filtration in Twitter Data and its Application in a Study on Corporate Sustainability Sentiment". The tweet data is not included due to the large file sizes and Twitter's Developer Policy. To request any tweet data collected or processed as part of this project, please email me at rosemcnally@hotmail.co.uk. Note that it can only be used for academic research as stipulated by the [Twitter API policy](https://developer.twitter.com/en/developer-terms/policy).
+This GitHub repository contains the files for the MSc individual project "Noise Filtration in Twitter Data and its Application in a Study on Corporate Sustainability Sentiment". The tweet data is not included due to the large file sizes and Twitter's Developer Policy. To request any tweet data collected or processed as part of this project, please email me at rosemcnally@hotmail.co.uk. Note that it can only be used for academic research as stipulated by the [Twitter API policy](https://developer.twitter.com/en/developer-terms/policy). The MSCI data is not available.
 
 ## Tweet Collection
 
