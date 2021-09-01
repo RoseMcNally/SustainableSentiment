@@ -34,12 +34,11 @@ class SvmTokenizer:
             self.embedding.save(save_path)
             self.vector_size = vector_size
 
-    def apply(self, data: pd.DataFrame):
-        word_train = np.zeros((1, self.vector_size + 1))
-        for index, row in data.iterrows():
+    def apply(self, data: pd.Series):
+        word_train = np.zeros((1, self.vector_size))
+        for index, row in data.iteritems():
             total_word_vec = np.zeros((1, self.vector_size))
-            text = row['Text']
-            for token in text:
+            for token in row.split():
                 token = str(token)
                 try:
                     word_vec = self.embedding.wv[token]
@@ -47,7 +46,6 @@ class SvmTokenizer:
                     total_word_vec += word_vec
                 except:
                     continue
-            total_word_vec = np.append(total_word_vec, row["Relevance"])
             word_train = np.vstack((word_train, total_word_vec))
         word_train = np.delete(word_train, (0), axis=0)
         return word_train
