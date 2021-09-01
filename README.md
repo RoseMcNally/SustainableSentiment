@@ -19,9 +19,11 @@ The `filter_full_data.py` file runs the successful BERTweet model on the full tw
 
 The `sentiment_analysis.py` file runs the BERTweet-based sentiment model from [pysentimiento](https://github.com/pysentimiento/pysentimiento) on the full dataset.
 
-The `correlation_raw.py` file plots the raw sustainability indices and sentiment data, and finds the correlation between the two. It also scans from a lag of -12 months to +12 months and finds the maximum correlation.
+Comparision between sentiment and MSCI indexes:
+- `sentiment_vs_msci_raw.py` plots the raw sentiment and msci indexes and calculates the correlation
+- `sentiment_vs_msci_smooth.py` smoothes the sentiment and msci indexes, plots them, calculates the correlation and scans from a lag of -12 to +12 months to find the maximum correlation
 
-The `correlation_smooth.py` file smoothes the sustainability indices and sentiment data, plots them and finds the correlation and lag.
-
-The `correlation_smooth_derivative.py` file smoothes the sustainability indices and sentiment data, differentiates the sustainability indices, plots them and finds the correlation and lag.
+Comparision between sentiment and change in MSCI indexes:
+- `sentiment_vs_change_msci_raw.py` plots the raw sentiment and change in msci indexes and calculates the correlation
+- `sentiment_vs_change_msci_smooth.py` smoothes the sentiment and change in msci indexes, plots them, calculates the correlation and scans from a lag of -12 to +12 months to find the maximum correlation
 
