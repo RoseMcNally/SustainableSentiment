@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 
 from sentiment_vs_msci_raw import name_translation, get_indices, get_sentiment, print_corr
 
+# The following two functions are taken from https://github.com/MikLang/Lowess_simulation
+
 def loc_eval(x, b):
     loc_est = 0
     for i in enumerate(b): loc_est += i[1] * (x ** i[0])
